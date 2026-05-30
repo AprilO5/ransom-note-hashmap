@@ -10,4 +10,17 @@ def can_construct(ransomNote: str, magazine: str) -> bool:
     Returns:
         bool: True if ransomNote can be constructed, False otherwise.
     """
-    pass  # TODO: Implement this function
+    magazine_counts = {}
+
+    # Build a frequency map of every available character in the magazine.
+    for character in magazine:
+        magazine_counts[character] = magazine_counts.get(character, 0) + 1
+
+    # Spend one stored character at a time while checking the ransom note.
+    for character in ransomNote:
+        if magazine_counts.get(character, 0) == 0:
+            return False
+
+        magazine_counts[character] -= 1
+
+    return True
